@@ -76,5 +76,37 @@ router.get('/get', async (req, res) => {
     }
 });
 
+router.get('/:productId', async (req, res) => {
+    const { productId } = req.params;
+
+    try {
+        const product = await Product.findById(productId)
+            .populate('brandId', 'brandName')
+            .populate('categoryId', 'categoryName')
+            .populate('subcategoryId', 'subcategoryName')
+            .select('productName price imageUrl');
+
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        const productDetails = {
+            _id: product._id,
+            productName: product.productName,
+            brandName: product.brandId.brandName,
+            categoryName: product.categoryId.categoryName,
+            subcategoryName: product.subcategoryId.subcategoryName,
+            price: product.price,
+            imageUrl: product.imageUrl
+        };
+
+        res.json(productDetails);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+
 
 module.exports = router;

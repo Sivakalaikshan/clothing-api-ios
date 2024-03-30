@@ -29,6 +29,7 @@ app.use('/category', categoryRoutes);
 app.use('/subcategory', subcategoryRoutes);
 app.use('/products', productRoutes);
 app.use('/brands', brandRoutes);
+app.use('/getid', productRoutes);
 
 
 
