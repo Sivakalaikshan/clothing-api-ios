@@ -15,4 +15,15 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.get('/get', async (req, res) => {
+    try {
+        const brands = await Brand.find();
+        res.json(brands);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+
 module.exports = router;

@@ -10,7 +10,7 @@ const subcategoryRoutes = require('./routes/subcategoryRoutes');
 const app = express();
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/TrendSpotter', {}).then(() => {
+mongoose.connect('mongodb+srv://root:root@atlascluster.kedmcse.mongodb.net/TrendSpotter?retryWrites=true&w=majority&appName=AtlasCluster', {}).then(() => {
     console.log('MongoDB connected');
 }).catch((error) => {
     console.error('MongoDB connection error:', error);
@@ -25,6 +25,7 @@ app.use('/brands', brandRoutes);
 app.use('/category', categoryRoutes);
 app.use('/subcategory', subcategoryRoutes);
 app.use('/products', productRoutes);
+app.use('/brands', brandRoutes);
 
 
 
