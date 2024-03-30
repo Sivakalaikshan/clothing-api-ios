@@ -6,6 +6,7 @@ const productRoutes = require('./routes/productRoutes');
 const brandRoutes = require('./routes/brandRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const subcategoryRoutes = require('./routes/subcategoryRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/subcategory', subcategoryRoutes);
 app.use('/products', productRoutes);
 app.use('/brands', brandRoutes);
 app.use('/getid', productRoutes);
+app.use('/cart',cartRoutes);
 
 
 
