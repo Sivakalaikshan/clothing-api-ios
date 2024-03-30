@@ -1,3 +1,4 @@
+const { text } = require('express');
 const mongoose = require('mongoose');
 
 const cartSchema = new mongoose.Schema({
@@ -13,6 +14,10 @@ const cartSchema = new mongoose.Schema({
         quantity: {
             type: Number,
             default: 1
+        },
+        size: {
+            type: String,
+            required: true
         },
         created_date: {
             type: Date,
