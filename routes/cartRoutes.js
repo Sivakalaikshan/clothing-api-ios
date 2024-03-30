@@ -4,9 +4,13 @@ const Cart = require('../models/cart');
 
 router.post('/', async (req, res) => {
     try {
+        // Create a new cart entry with the data from the request body
         const cart = await Cart.create(req.body);
+
+        // Respond with the created cart entry
         res.status(201).json(cart);
     } catch (error) {
+        // Handle any errors that occur during cart creation
         console.error(error);
         res.status(500).json({ message: 'Server Error' });
     }
