@@ -20,15 +20,10 @@ const upload = multer({ storage: storage });
 router.post('/', upload.single('imageUrl'), async (req, res) => {
     try {
         // Extract other fields from req.body
-        const { productName, description, price, brandId, categoryId, subcategoryId } = req.body;
+        const { productName, price, imageUrl, brandId, categoryId, subcategoryId } = req.body;
 
         // Check if image file is provided
-        if (!req.file) {
-            return res.status(400).json({ message: 'Image file is required' });
-        }
-
-        // Extract image filename from req.file
-        const imageUrl = req.file.filename;
+       
 
         // Create the product in the database with the image URL
         const product = await Product.create({
