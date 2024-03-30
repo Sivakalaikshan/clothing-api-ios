@@ -19,6 +19,9 @@ mongoose.connect('mongodb+srv://root:root@atlascluster.kedmcse.mongodb.net/Trend
 // Middleware
 app.use(express.json());
 
+app.use(express.static('public'));
+app.use('/images', express.static('images'));
+
 // Routes
 app.use('/products', productRoutes);
 app.use('/brands', brandRoutes);
