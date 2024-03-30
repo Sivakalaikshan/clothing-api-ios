@@ -65,7 +65,7 @@ router.get('/get', async (req, res) => {
                 categoryName: product.categoryId.categoryName,
                 subcategoryName: product.subcategoryId.subcategoryName,
                 price: product.price,
-                imageUrl: `${req.protocol}://${req.get('host')}/images/${product.imageUrl}`
+                imageUrl: product.imageUrl
             };
         });
 
