@@ -57,20 +57,18 @@ router.get('/get', async (req, res) => {
             .populate('subcategoryId', 'subcategoryName')
             .select('productName price imageUrl');
 
-        // Map product objects to include complete image URLs
-        const productsWithImageUrls = products.map(product => {
+        const productsWithDetails = products.map(product => {
             return {
-                _id: product._id,
                 productName: product.productName,
-                price: product.price,
-                imageUrl: `${req.protocol}://${req.get('host')}/images/${product.imageUrl}`,
                 brandName: product.brandId.brandName,
                 categoryName: product.categoryId.categoryName,
-                subcategoryName: product.subcategoryId.subcategoryName
+                subcategoryName: product.subcategoryId.subcategoryName,
+                price: product.price,
+                imageUrl: `${req.protocol}://${req.get('host')}/images/${product.imageUrl}`
             };
         });
 
-        res.json(productsWithImageUrls);
+        res.json(productsWithDetails);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server Error' });
