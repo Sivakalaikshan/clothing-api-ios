@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Route to insert a product with image upload
-router.post('/', upload.single('imageUrl'), async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         // Extract other fields from req.body
         const { productName, price, imageUrl, brandId, categoryId, subcategoryId } = req.body;
@@ -28,7 +28,6 @@ router.post('/', upload.single('imageUrl'), async (req, res) => {
         // Create the product in the database with the image URL
         const product = await Product.create({
             productName,
-            description,
             price,
             imageUrl,
             brandId,
