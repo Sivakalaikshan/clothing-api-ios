@@ -59,6 +59,7 @@ router.get('/get', async (req, res) => {
 
         const productsWithDetails = products.map(product => {
             return {
+                _id: product._id, // Include product ID
                 productName: product.productName,
                 brandName: product.brandId.brandName,
                 categoryName: product.categoryId.categoryName,
@@ -74,5 +75,6 @@ router.get('/get', async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 });
+
 
 module.exports = router;
