@@ -106,22 +106,33 @@ router.get('/products/:brandName', async (req, res) => {
     const brandName = req.params.brandName;
 
     try {
-        // Find the products associated with the specified brand name
-        const products = await Product.find({}).populate({
-            path: 'brandId',
-            match: { brandName: brandName }
-        }).exec();
+        // Find the products associated with the specified brand name and populate referenced fields
+        const products = await Product.find({}).populate('brandId').populate('categoryId').populate('subcategoryId').exec();
 
-        if (products.length === 0) {
+        // Filter products by brandName
+        const filteredProducts = products.filter(product => product.brandId && product.brandId.brandName === brandName);
+
+        if (filteredProducts.length === 0) {
             return res.status(404).json({ message: 'No products found for the specified brand.' });
         }
 
-        res.status(200).json(products);
+        // Construct the response object with desired fields
+        const responseData = filteredProducts.map(product => ({
+            productName: product.productName,
+            brandName: product.brandId.brandName,
+            categoryName: product.categoryId ? product.categoryId.categoryName : null,
+            subcategoryName: product.subcategoryId ? product.subcategoryId.subcategoryName : null,
+            price: product.price,
+            imageUrl: product.imageUrl
+        }));
+
+        res.status(200).json(responseData);
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 
 
