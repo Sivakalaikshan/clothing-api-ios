@@ -118,7 +118,7 @@ router.get('/products/:brandName', async (req, res) => {
 
         // Construct the response object with desired fields
         const responseData = filteredProducts.map(product => ({
-            productId: product._id,
+            _id: product._id,
             productName: product.productName,
             brandName: product.brandId.brandName,
             categoryName: product.categoryId ? product.categoryId.categoryName : null,
