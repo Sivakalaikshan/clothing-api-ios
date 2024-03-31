@@ -102,5 +102,27 @@ router.get('/:productId', async (req, res) => {
 });
 
 
+router.get('/products/:brandName', async (req, res) => {
+    const brandName = req.params.brandName;
+
+    try {
+        // Find the products associated with the specified brand name
+        const products = await Product.find({}).populate({
+            path: 'brandId',
+            match: { brandName: brandName }
+        }).exec();
+
+        if (products.length === 0) {
+            return res.status(404).json({ message: 'No products found for the specified brand.' });
+        }
+
+        res.status(200).json(products);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
 
 module.exports = router;
